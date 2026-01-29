@@ -5,12 +5,32 @@
     font-family: sans-serif;
 }
 
-.container{
-    width: 100vw;
+.container {
+    width: 100%;
     min-height: 100vh;
-    background: #ced8ff;
     transition: 0.5s;
 }
-.container.dark{
-    background: #222;
+
+/* HERO SECTION */
+.hero {
+    min-height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 5px 0;
+    background-position: center top;
+}
+
+/* LIGHT MODE BACKGROUND */
+.container.light .hero {
+    background:
+        linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)),
+        url("./assets/background_light.png");
+}
+
+/* DARK MODE BACKGROUND */
+.container.dark .hero {
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url("./assets/background_dark.png");
 }
