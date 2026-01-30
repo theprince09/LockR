@@ -333,3 +333,136 @@
 .hidden {
     visibility: hidden;
 }
+
+
+
+/* =========================
+   PERFORMANCE SAFE BASE
+========================= */
+.generator-wrapper {
+    position: relative;
+    border-radius: 20px;
+}
+
+/* COMMON BORDER */
+.generator-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 3px;
+    border-radius: 20px;
+
+    background-size: 300% 300%;
+    opacity: var(--glow-opacity, 0);
+
+    pointer-events: none;
+
+    /* cut center */
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+
+    /* GPU friendly */
+    will-change: background-position, opacity;
+}
+
+/* =========================
+   COLOR VARIANTS
+========================= */
+
+/* 🔴 WEAK */
+.generator-wrapper.glow-weak::before {
+    background: linear-gradient(90deg,
+            #5a0000,
+            #ff0033,
+            #5a0000);
+    filter:
+        drop-shadow(0 0 10px rgba(255, 0, 0, 0.8)) drop-shadow(0 0 25px rgba(255, 0, 0, 0.6));
+}
+
+/* 🟡 MEDIUM */
+.generator-wrapper.glow-medium::before {
+    background: linear-gradient(90deg,
+            #5a3b00,
+            #ffae00,
+            #5a3b00);
+    filter:
+        drop-shadow(0 0 10px rgba(255, 170, 0, 0.7)) drop-shadow(0 0 25px rgba(255, 170, 0, 0.5));
+}
+
+/* 🟢 STRONG */
+.generator-wrapper.glow-strong::before {
+    background: linear-gradient(90deg,
+            #003d1f,
+            #00ff88,
+            #003d1f);
+    filter:
+        drop-shadow(0 0 10px rgba(0, 255, 136, 0.7)) drop-shadow(0 0 25px rgba(0, 255, 136, 0.5));
+}
+
+/* =========================
+   ACTIVE + SCANNER MOVE
+========================= */
+.generator-wrapper.glow::before {
+    opacity: 1;
+    animation:
+        borderScan 3.2s linear infinite,
+        glowFade 3.5s ease-out forwards;
+}
+
+/* Corner-by-corner illusion */
+@keyframes borderScan {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    25% {
+        background-position: 100% 0%;
+    }
+
+    50% {
+        background-position: 100% 100%;
+    }
+
+    75% {
+        background-position: 0% 100%;
+    }
+
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+/* Smooth fade out */
+@keyframes glowFade {
+    0% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/* CARD */
+.generator-card {
+    position: relative;
+    z-index: 1;
+    border-radius: 18px;
+}
+/* =========================
+   MOBILE PERFORMANCE
+========================= */
+@media (max-width: 768px) {
+    .generator-wrapper::before {
+        filter:
+            drop-shadow(0 0 6px rgba(255, 255, 255, 0.4));
+        animation-duration: 4.5s;
+    }
+}

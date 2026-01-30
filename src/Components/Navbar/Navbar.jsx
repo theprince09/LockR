@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./Navbar.css";
 import logo_light from "../../assets/logo-light.png";
 import logo_dark from "../../assets/logo-black.png";
@@ -7,11 +7,14 @@ import toogle_day from "../../assets/day.png";
 
 import en from "../../languages/en";
 import hi from "../../languages/hi";
+import { LanguageContext } from "../../context/LanguageContext";
 
 const Navbar = ({ theme, setTheme }) => {
-  /* 🌐 Language state (from localStorage) */
+  /* 🌐 Language state (local + context sync) */
   const savedLang = localStorage.getItem("lang") || "en";
   const [lang, setLang] = useState(savedLang);
+
+  const { changeLanguage } = useContext(LanguageContext); // 👈 ADD ONLY THIS
 
   /* 📱 Mobile menu state */
   const [menuOpen, setMenuOpen] = useState(false);
@@ -24,11 +27,18 @@ const Navbar = ({ theme, setTheme }) => {
   /* 🌐 Language change */
   const handleLanguageChange = (e) => {
     const selectedLang = e.target.value;
-    setLang(selectedLang);
+
+    setLang(selectedLang); // Navbar local update
     localStorage.setItem("lang", selectedLang);
+    changeLanguage(selectedLang); // 👈 CONTEXT UPDATE
   };
 
-  /* Current language text */
+  /* Sync on first load */
+  useEffect(() => {
+    changeLanguage(lang);
+  }, []); // eslint-disable-line
+
+  /* Current language text (navbar only) */
   const t = lang === "en" ? en : hi;
 
   return (
@@ -41,10 +51,14 @@ const Navbar = ({ theme, setTheme }) => {
 
       {/* 📱 Menu */}
       <ul className={menuOpen ? "open" : ""}>
-        <li>{t.generator}</li>
+        <li>
+          <a href="#home">{t.generator}</a>
+        </li>
         <li>{t.passphrase}</li>
         <li>{t.security}</li>
-        <li>{t.about}</li>
+        <li>
+          <a href="#about">{t.about}</a>
+        </li>
       </ul>
 
       {/* 🌐 Language Dropdown */}
@@ -55,9 +69,6 @@ const Navbar = ({ theme, setTheme }) => {
       >
         <option value="en">English</option>
         <option value="hi">हिंदी</option>
-        {/* future:
-        <option value="fr">Français</option>
-        */}
       </select>
 
       {/* 🌙 Theme Toggle */}

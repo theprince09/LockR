@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Hero.css";
 import Generator from "../Generator/Generator";
 
 const Hero = () => {
+  const [triggerGlow, setTriggerGlow] = useState(false);
+  const handleTryNow = () => {
+    setTriggerGlow(true);
+    setTimeout(() => setTriggerGlow(false), 3500);
+  };
   return (
     <section className="hero">
       <div className="hero-content">
@@ -22,12 +27,14 @@ const Hero = () => {
             accounts safe.
           </p>
 
-          <button className="hero-btn">TRY NOW</button>
+          <button className="hero-btn" onClick={handleTryNow}>
+            TRY NOW
+          </button>
         </div>
 
         {/* RIGHT */}
         <div className="hero-right">
-          <Generator />
+          <Generator glow={triggerGlow} />
         </div>
       </div>
     </section>

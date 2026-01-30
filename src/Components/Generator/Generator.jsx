@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Generator.css";
 import words from "../../data/wordlist-en.json";
 
-const Generator = () => {
+const Generator = ({ glow }) => {
   /* =====================
      STATES
   ===================== */
@@ -12,6 +12,21 @@ const Generator = () => {
   );
   const [password, setPassword] = useState("");
   const [tipsMinimized, setTipsMinimized] = useState(false);
+  const [animateBorder, setAnimateBorder] = useState(false);
+
+  const getGlowClass = () => {
+    if (strengthLabel === "Weak") return "glow-weak";
+    if (strengthLabel === "Medium") return "glow-medium";
+    return "glow-strong";
+  };
+
+  const triggerGlow = () => {
+    setAnimateBorder(true);
+    setTimeout(() => setAnimateBorder(false), 3500);
+  };
+  useEffect(() => {
+    if (glow) triggerGlow();
+  }, [glow]);
 
   // Password switches
   const [useUpper, setUseUpper] = useState(
@@ -137,7 +152,9 @@ const Generator = () => {
      COPY
   ===================== */
   const copyToClipboard = () => {
-    if (password) navigator.clipboard.writeText(password);
+    if (!password) return;
+    navigator.clipboard.writeText(password);
+    triggerGlow(); // 🔥 AUTO GLOW ON COPY
   };
 
   /* =====================
@@ -171,7 +188,7 @@ const Generator = () => {
   };
 
   const strengthScore = getStrengthScore();
-
+  const glowIntensity = Math.min(1, strengthScore / 100);
   const strengthLabel =
     strengthScore < 40 ? "Weak" : strengthScore < 70 ? "Medium" : "Strong";
 
@@ -193,135 +210,160 @@ const Generator = () => {
      UI
   ===================== */
   return (
-    <div className="generator-card">
-      {/* HEADER */}
-      <div className="gen-header">
-        <h3>Generate Password</h3>
-        <div className="tabs">
-          <button
-            className={type === "password" ? "active" : ""}
-            onClick={() => setType("password")}
-          >
-            Password
-          </button>
-          <button
-            className={type === "pin" ? "active" : ""}
-            onClick={() => setType("pin")}
-          >
-            PIN
-          </button>
-          <button
-            className={type === "phrase" ? "active" : ""}
-            onClick={() => setType("phrase")}
-          >
-            Passphrase
-          </button>
-        </div>
-      </div>
-
-      {/* BODY */}
-      <div className="gen-body">
-        <div className="password-display">
-          <div className="password-text">{password || "—"}</div>
-        </div>
-
-        <div className="display-actions">
-          <button onClick={generatePassword}>⟳ Refresh</button>
-          <button onClick={copyToClipboard}>📋 Copy</button>
+    <div
+      className={`generator-wrapper ${
+        animateBorder ? `glow ${getGlowClass()}` : ""
+      }`}
+      style={{
+        "--glow-opacity": glowIntensity,
+      }}
+    >
+      <div className="generator-card">
+        {/* HEADER */}
+        <div className="gen-header">
+          <h3>Generate Password</h3>
+          <div className="tabs">
+            <button
+              className={type === "password" ? "active" : ""}
+              onClick={() => setType("password")}
+            >
+              Password
+            </button>
+            <button
+              className={type === "pin" ? "active" : ""}
+              onClick={() => setType("pin")}
+            >
+              PIN
+            </button>
+            <button
+              className={type === "phrase" ? "active" : ""}
+              onClick={() => setType("phrase")}
+            >
+              Passphrase
+            </button>
+          </div>
         </div>
 
-        {/* LENGTH */}
-        <div className="length-control">
-          <button
-            onClick={() =>
-              setLength((l) => Math.max(type === "phrase" ? 2 : 4, l - 1))
-            }
-          >
-            −
-          </button>
+        {/* BODY */}
+        <div className="gen-body">
+          <div className="password-display">
+            <div className="password-text">{password || "—"}</div>
+          </div>
+
+          <div className="display-actions">
+            <button onClick={generatePassword}>⟳ Refresh</button>
+            <button onClick={copyToClipboard}>📋 Copy</button>
+          </div>
+
+          {/* LENGTH */}
+          <div className="length-control">
+            <button
+              onClick={() =>
+                setLength((l) => Math.max(type === "phrase" ? 2 : 4, l - 1))
+              }
+            >
+              −
+            </button>
+            <input
+              type="number"
+              value={length}
+              onChange={(e) => setLength(Number(e.target.value))}
+            />
+            <button onClick={() => setLength((l) => l + 1)}>+</button>
+          </div>
+
           <input
-            type="number"
+            type="range"
+            min={type === "phrase" ? 2 : 4}
+            max={type === "phrase" ? 8 : 100}
             value={length}
             onChange={(e) => setLength(Number(e.target.value))}
+            className="length-slider"
           />
-          <button onClick={() => setLength((l) => l + 1)}>+</button>
+
+          {/* SWITCHES */}
+          {type === "password" && (
+            <div className="options">
+              <Switch
+                label="Uppercase"
+                value={useUpper}
+                setValue={setUseUpper}
+              />
+              <Switch
+                label="Lowercase"
+                value={useLower}
+                setValue={setUseLower}
+              />
+              <Switch
+                label="Numbers"
+                value={useNumber}
+                setValue={setUseNumber}
+              />
+              <Switch
+                label="Symbols"
+                value={useSymbol}
+                setValue={setUseSymbol}
+              />
+            </div>
+          )}
+
+          {type === "phrase" && (
+            <div className="options">
+              <div className="switch-row">
+                <span>Capitalize</span>
+                <Switch value={capitalize} setValue={setCapitalize} />
+              </div>
+              <div className="switch-row">
+                <span>Separator</span>
+                <select
+                  value={separator}
+                  onChange={(e) => setSeparator(e.target.value)}
+                >
+                  <option value="-">-</option>
+                  <option value="_">_</option>
+                  <option value=" ">Space</option>
+                </select>
+              </div>
+            </div>
+          )}
         </div>
 
-        <input
-          type="range"
-          min={type === "phrase" ? 2 : 4}
-          max={type === "phrase" ? 8 : 100}
-          value={length}
-          onChange={(e) => setLength(Number(e.target.value))}
-          className="length-slider"
-        />
-
-        {/* SWITCHES */}
-        {type === "password" && (
-          <div className="options">
-            <Switch label="Uppercase" value={useUpper} setValue={setUseUpper} />
-            <Switch label="Lowercase" value={useLower} setValue={setUseLower} />
-            <Switch label="Numbers" value={useNumber} setValue={setUseNumber} />
-            <Switch label="Symbols" value={useSymbol} setValue={setUseSymbol} />
-          </div>
-        )}
-
-        {type === "phrase" && (
-          <div className="options">
-            <div className="switch-row">
-              <span>Capitalize</span>
-              <Switch value={capitalize} setValue={setCapitalize} />
-            </div>
-            <div className="switch-row">
-              <span>Separator</span>
-              <select
-                value={separator}
-                onChange={(e) => setSeparator(e.target.value)}
-              >
-                <option value="-">-</option>
-                <option value="_">_</option>
-                <option value=" ">Space</option>
-              </select>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* =====================
+        {/* =====================
     STRENGTH SECTION
 ===================== */}
-      <div className="strength-section">
-        {/* ROW 1: Strength */}
-        <div className="strength-row">
-          <div className={`strength-label ${strengthLabel.toLowerCase()}`}>
-            {strengthLabel}
+        <div className="strength-section">
+          {/* ROW 1: Strength */}
+          <div className="strength-row">
+            <div className={`strength-label ${strengthLabel.toLowerCase()}`}>
+              {strengthLabel}
+            </div>
+
+            <div className="strength-bar">
+              <div
+                className={`bar ${strengthLabel.toLowerCase()}`}
+                style={{ width: `${strengthScore}%` }}
+              />
+            </div>
           </div>
 
-          <div className="strength-bar">
-            <div
-              className={`bar ${strengthLabel.toLowerCase()}`}
-              style={{ width: `${strengthScore}%` }}
-            />
+          {/* ROW 2: Time to crack */}
+          <div className="crack-row">
+            ⏱ <span>Time to crack:</span>
+            <strong className={strengthLabel.toLowerCase()}>{crackTime}</strong>
           </div>
-        </div>
 
-        {/* ROW 2: Time to crack */}
-        <div className="crack-row">
-          ⏱ <span>Time to crack:</span>
-          <strong className={strengthLabel.toLowerCase()}>{crackTime}</strong>
-        </div>
+          {/* ROW 3: Suggestions */}
+          <div className={`tips-row ${strengthLabel.toLowerCase()}`}>
+            {!tipsMinimized && <span>{strengthTip}</span>}
 
-        {/* ROW 3: Suggestions */}
-        <div className={`tips-row ${strengthLabel.toLowerCase()}`}>
-          {!tipsMinimized && <span>{strengthTip}</span>}
-
-          <button
-            onClick={() => setTipsMinimized(!tipsMinimized)}
-            className="tips-toggle"
-            title={tipsMinimized ? "Expand tips" : "Minimize tips"}
-          >
-            {tipsMinimized ? "＋" : "－"}
-          </button>
+            <button
+              onClick={() => setTipsMinimized(!tipsMinimized)}
+              className="tips-toggle"
+              title={tipsMinimized ? "Expand tips" : "Minimize tips"}
+            >
+              {tipsMinimized ? "＋" : "－"}
+            </button>
+          </div>
         </div>
       </div>
     </div>
