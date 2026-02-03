@@ -1,7 +1,7 @@
 const hi = {
-  generator: "जेनरेटर",
+  Why: "क्यों",
   passphrase: "पासफ़्रेज़",
-  security: "सुरक्षा",
+  PIN: "पिन",
   about: "परिचय",
   language: "HI",
 

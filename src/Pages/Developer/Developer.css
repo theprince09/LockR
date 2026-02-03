@@ -1,0 +1,171 @@
+.developer {
+    min-height: 100vh;
+    padding: 90px 7%;
+    transition: 0.4s;
+}
+
+/* LIGHT MODE */
+.container.light .developer {
+    background: #f3f4f6;
+    color: #111827;
+}
+
+/* DARK MODE */
+.container.dark .developer {
+    background: linear-gradient(180deg, #0f172a, #020617);
+    color: #ffffff;
+}
+
+.developer-wrapper {
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* HERO */
+.developer-hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+
+.dev-left h1 {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.dev-left h1 span {
+    color: #22c55e;
+}
+
+.dev-left p {
+    max-width: 1000px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    font-size: 18px;
+    opacity: 0.85;
+}
+
+/* PROFILE PHOTO */
+.dev-right img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #22c55e;
+}
+
+/* SOCIALS */
+.socials {
+    display: flex;
+    gap: 100px;
+    margin-top: 20px;
+}
+
+.socials a {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid #22c55e;
+    text-decoration: none;
+    color: inherit;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.socials a:hover {
+    background: #22c55e;
+    color: #fff;
+}
+
+/* OTHER PRODUCTS */
+.projects-section {
+    margin-top: 30px;
+}
+
+.projects-section h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+.project-card {
+    min-width: 260px;
+    max-width: 260px;
+    flex-shrink: 0;
+}
+/* SLIDER */
+.slider-wrapper {
+    position: relative;
+    max-width: calc(260px * 4 + 20px * 3);
+    /* 4 cards + gaps */
+    margin: auto;
+}
+
+.projects-slider {
+    display: flex;
+    gap: 20px;
+    overflow-x: hidden;
+    /* IMPORTANT */
+    scroll-behavior: smooth;
+    padding-bottom: 12px;
+}
+/* SCROLLBAR */
+.projects-slider::-webkit-scrollbar {
+    height: 6px;
+}
+
+.projects-slider::-webkit-scrollbar-thumb {
+    background: #22c55e;
+    border-radius: 10px;
+}
+
+/* NAV BUTTONS */
+.nav-btn {
+    position: absolute;
+    top: 40%;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    background: #22c55e;
+    color: #fff;
+    font-size: 22px;
+}
+
+.nav-btn.left {
+    left: -70px;
+}
+
+.nav-btn.right {
+    right: -70px;
+}
+
+/* SCROLL HINT */
+.scroll-hint {
+    margin-top: 12px;
+    font-size: 13px;
+    opacity: 0.6;
+}
+
+/* FOOTER */
+.developer-footer {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .developer-hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .dev-left h1 {
+        font-size: 36px;
+    }
+
+    .dev-left p {
+        font-size: 16px;
+    }
+}

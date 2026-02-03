@@ -9,7 +9,7 @@ const Hero = () => {
     setTimeout(() => setTriggerGlow(false), 3500);
   };
   return (
-    <section className="hero">
+    <section className="hero" id="home">
       <div className="hero-content">
         {/* LEFT */}
         <div className="hero-left">

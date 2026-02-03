@@ -43,21 +43,26 @@ const Navbar = ({ theme, setTheme }) => {
 
   return (
     <div className="navbar">
-      <img
-        src={lang === "en" ? logo_light : logo_dark}
-        alt="logo"
-        className="logo"
-      />
+      <a href="#home">
+        <img
+          src={lang === "en" ? logo_light : logo_dark}
+          alt="logo"
+          className="logo"
+        />
+      </a>
 
       {/* 📱 Menu */}
       <ul className={menuOpen ? "open" : ""}>
-        <li>
-          <a href="#home">{t.generator}</a>
-        </li>
         <li>{t.passphrase}</li>
-        <li>{t.security}</li>
+
+        <li>{t.PIN}</li>
+
         <li>
-          <a href="#about">{t.about}</a>
+          <a href="#why">{t.Why}</a>
+        </li>
+
+        <li>
+          <a href="#developer">{t.about}</a>
         </li>
       </ul>
 

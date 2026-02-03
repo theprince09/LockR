@@ -7,7 +7,7 @@ const About = () => {
   const data = t.aboutPage; // 👈 CORRECT
 
   return (
-    <section className="about" id="about">
+    <section className="about" id="why">
       <div className="about-wrapper">
         {/* HERO */}
         <div className="about-hero fade-in">

@@ -1,7 +1,7 @@
 const en = {
-  generator: "Generator",
+  Why: "Why",
   passphrase: "Passphrase",
-  security: "Security",
+  PIN: "Pin",
   about: "About",
   language: "EN",
 
