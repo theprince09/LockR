@@ -1,16 +1,174 @@
-# React + Vite
+# 🔐 LockR — Secure Password, PIN & Passphrase Generator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+LockR is a modern, privacy-focused **client-side password generator** that helps users create **strong, secure, and crack-resistant passwords, PINs, and passphrases** — directly in the browser.
 
-Currently, two official plugins are available:
+No backend. No tracking. No data storage.  
+**Your security stays with you.**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🌐 Live Preview
+https://lockr09.netlify.app/
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## ✨ Key Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 🔑 Password Generator
+- Generate strong passwords instantly
+- Length control (slider + manual input)
+- Options:
+  - Uppercase
+  - Lowercase
+  - Numbers
+  - Symbols
+
+### 🔢 PIN Generator
+- Numeric-only secure PINs
+- Adjustable length
+- Strength analysis included
+
+### 🧠 Passphrase Generator
+- Diceware-based real-world words
+- Length = number of words
+- Separator options:
+  - `-` (hyphen)
+  - `_` (underscore)
+  - Space
+- Capitalization toggle
+
+### 📊 Smart Strength Analysis
+- Real-time strength score: **Weak / Medium / Strong**
+- Animated visual strength bar
+- Crack-time estimation
+- Logical checks:
+  - Pattern detection
+  - Repetition checks
+  - Entropy-based scoring
+- Helpful security suggestions
+
+### 🌈 Interactive Glow Effects
+- Border glow synced with strength level
+- Auto glow on **Copy**
+- Smooth neon animation (performance optimized)
+
+### 🌙 Dark / Light Mode
+- Fully responsive themes
+- Smooth transitions
+- Theme preference saved in `localStorage`
+
+### 🌐 Multi-Language Support
+- English 🇬🇧
+- Hindi 🇮🇳
+- Centralized language system using React Context API
+
+### 📱 Fully Responsive
+- Mobile-first design
+- Optimized for desktop, tablet & mobile
+
+---
+
+## 🛡️ Privacy & Security
+
+- ✅ 100% client-side execution
+- ❌ No backend server
+- ❌ No password storage
+- ❌ No tracking or analytics
+- 🔐 Passwords never leave your device
+
+---
+
+## 🧩 Pages & Sections
+
+- **Home / Hero** — Live password generator demo
+- **Why LockR** — Real-world password security problems
+- **About** — Philosophy & solution
+- **Developer** — Developer profile & other products
+
+---
+
+## 👨‍💻 Developer
+
+**Prince Raj**  
+Frontend Developer focused on building clean, secure, and user-first web experiences.
+
+### 🔗 Connect with Me
+- GitHub: https://github.com/theprince09
+- LinkedIn: https://linkedin.com/in/itsmeprince09
+- Portfolio: https://prince09.netlify.app
+- Email: princeraj0509@gmail.com
+
+---
+
+## 🚀 Other Products
+
+- **Portfolio Website** — HTML, CSS, JavaScript  
+- **GameWorld** — Mini browser games platform  
+- **Gym Website** — Gym management & online presence  
+- **UrbanEase** — React-based urban management system  
+- **DevProgress** — Developer activity & progress tracker  
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** React.js
+- **Styling:** CSS (Glassmorphism + Neon UI)
+- **State Management:** React Hooks & Context API
+- **Routing:** React Router
+- **Data:** Diceware wordlist (JSON)
+- **Storage:** localStorage
+- **Build Tool:** Vite
+
+---
+
+## 📁 Project Structure
+
+src/
+├── assets/
+├── Components/
+│ ├── Generator/
+│ ├── Hero/
+│ ├── Navbar/
+│ └── Cards/
+├── Pages/
+│ ├── About/
+│ └── Developer/
+├── context/
+│ └── LanguageContext.jsx
+├── data/
+│ └── wordlist-en.json
+├── languages/
+│ ├── en.js
+│ └── hi.js
+├── App.jsx
+├── main.jsx
+└── index.css
+
+
+---
+
+## 🚀 Local Setup
+
+```bash
+git clone https://github.com/theprince09/lockR.git
+cd lockR
+npm install
+npm run dev
+📌 Future Enhancements
+Password history (local-only)
+
+Secure export options
+
+More languages
+
+Accessibility improvements
+
+PWA support
+
+⭐ Why LockR?
+Weak and reused passwords are still the #1 cause of account breaches.
+LockR makes strong security simple, fast, and transparent.
+
+📜 License
+This project is open-source and intended for educational & portfolio use.
