@@ -8,7 +8,7 @@ No backend. No tracking. No data storage.
 ---
 
 ## 🌐 Live Preview
-https://lockr09.netlify.app/
+https://lockr09.in
 
 ---
 
